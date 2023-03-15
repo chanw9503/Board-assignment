@@ -31,8 +31,11 @@ const boardSlice = createSlice({
       });
       return;
     },
+    deleteBoard: (state, action) => {
+      return state.filter((item) => item.id !== action.payload);
+    },
   },
 });
 
 export default boardSlice.reducer;
-export const { addBoard, modifyBoard } = boardSlice.actions;
+export const { addBoard, modifyBoard, deleteBoard } = boardSlice.actions;

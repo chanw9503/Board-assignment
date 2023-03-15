@@ -50,7 +50,7 @@ const StyledInput = styled.input`
   width: 400px;
   border: none;
   border-radius: 5px;
-  padding-left: 10px;
+
   font-size: '1.25rem';
   outline: none;
 
@@ -58,6 +58,5 @@ const StyledInput = styled.input`
 `;
 
 const StyledLabel = styled.label`
-  margin-right: 10px;
   font-weight: 700;
 `;

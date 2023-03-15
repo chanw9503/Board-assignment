@@ -12,17 +12,21 @@ import {
 } from './styles';
 
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import DeleteIcon from '../Icon/DeleteIcon/DeleteIcon';
+import { deleteBoard } from '../../modules/board';
 
 function Board() {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const handleWritingPageLinkclick = () => {
     navigate('/writing');
   };
-
   const board = useSelector((state) => state.board);
+
+  const handlerClickDelete = (id) => {
+    dispatch(deleteBoard(id));
+  };
 
   const handlerClickTitle = (id) => {
     console.log('id : ', id);
@@ -58,7 +62,7 @@ function Board() {
                 <StyledBoardTd width={50}>{item.writer}</StyledBoardTd>
                 <StyledBoardTd width={50}>{item.day}</StyledBoardTd>
                 <StyledBoardTd textAlign="center" width={50}>
-                  <DeleteIcon />
+                  <DeleteIcon onClick={() => handlerClickDelete(item.id)} />
                 </StyledBoardTd>
               </StyledBoardTr>
             );

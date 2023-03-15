@@ -21,6 +21,8 @@ function DetailBoard() {
   //주소값에서 내가 필요한 id 값만 parsing하기 위해서 아래와 같이 자른다.
   const id = location.pathname.slice(1).split('id', 2)[1].slice(1);
 
+  //useParams
+
   //useSelector로 store에 있는 state 값을 불러와서
   //내가 필요한 id에 있는 data 값만 가져온다.
   const filterBoard = useSelector((state) =>

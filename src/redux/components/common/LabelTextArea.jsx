@@ -23,8 +23,6 @@ const StyledTextArea = styled.textarea`
   width: 95%;
   border: 0;
   border-radius: 5px;
-  padding: 10px;
-  margin-right: 10px;
   outline: none;
   font-size: 0.75rem;
   border: none;
@@ -32,6 +30,5 @@ const StyledTextArea = styled.textarea`
 `;
 
 const StyledLabel = styled.label`
-  margin-right: 10px;
   font-weight: 700;
 `;
