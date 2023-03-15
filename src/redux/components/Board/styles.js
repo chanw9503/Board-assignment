@@ -27,6 +27,12 @@ const StyledBoardTh = styled.th`
   padding: 0.6rem;
   min-width: 6rem;
   text-align: left;
+
+  ${(props) =>
+    props.textAlign &&
+    css`
+      text-align: ${props.textAlign};
+    `}
   margin: 0;
 `;
 
@@ -54,6 +60,12 @@ const StyledBoardTd = styled.td`
     `}
 
   cursor: pointer;
+
+  ${(props) =>
+    props.textAlign &&
+    css`
+      text-align: ${props.textAlign};
+    `}
 `;
 
 const StyledLine = styled.div`

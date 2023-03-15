@@ -16,12 +16,23 @@ const boardSlice = createSlice({
   initialState: initialState,
   reducers: {
     addBoard: (state, action) => {
-      console.log('action.payload', action.payload);
-      console.log('state', state);
       return [...state, action.payload];
+    },
+    modifyBoard: (state, action) => {
+      const board = action.payload;
+      const newBoard = state.map((item) => {
+        if (item.id === board.id) {
+          item.title = board.title;
+          item.body = board.body;
+          return item;
+        } else {
+          return item;
+        }
+      });
+      return;
     },
   },
 });
 
 export default boardSlice.reducer;
-export const { addBoard } = boardSlice.actions;
+export const { addBoard, modifyBoard } = boardSlice.actions;

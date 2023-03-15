@@ -13,6 +13,7 @@ import {
 
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import DeleteIcon from '../Icon/DeleteIcon/DeleteIcon';
 
 function Board() {
   const navigate = useNavigate();
@@ -37,6 +38,9 @@ function Board() {
             <StyledBoardTh width={450}>제목</StyledBoardTh>
             <StyledBoardTh width={90}>글쓴이</StyledBoardTh>
             <StyledBoardTh width={90}>작성시간</StyledBoardTh>
+            <StyledBoardTh textAlign="center" width={10}>
+              삭제
+            </StyledBoardTh>
           </StyledBoardTr>
         </thead>
         <tbody>
@@ -53,6 +57,9 @@ function Board() {
                 </StyledBoardTd>
                 <StyledBoardTd width={50}>{item.writer}</StyledBoardTd>
                 <StyledBoardTd width={50}>{item.day}</StyledBoardTd>
+                <StyledBoardTd textAlign="center" width={50}>
+                  <DeleteIcon />
+                </StyledBoardTd>
               </StyledBoardTr>
             );
           })}
