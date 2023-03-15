@@ -17,12 +17,16 @@ import { useSelector } from 'react-redux';
 function Board() {
   const navigate = useNavigate();
 
-  const HandleWritingPageLinkclick = () => {
+  const handleWritingPageLinkclick = () => {
     navigate('/writing');
   };
 
   const board = useSelector((state) => state.board);
 
+  const handlerClickTitle = (id) => {
+    console.log('id : ', id);
+    navigate(`/post/id=${id}`);
+  };
   return (
     <StyledDiv>
       <StyledTitle>자유 게시판</StyledTitle>
@@ -38,9 +42,15 @@ function Board() {
         <tbody>
           {board.map((item) => {
             return (
-              <StyledBoardTr key={item.id}>
+              <StyledBoardTr isTd={true} key={item.id}>
                 <StyledBoardTd width={30}>{item.no}</StyledBoardTd>
-                <StyledBoardTd width={480}>{item.title}</StyledBoardTd>
+                <StyledBoardTd
+                  isClick={true}
+                  onClick={() => handlerClickTitle(item.id)}
+                  width={480}
+                >
+                  {item.title}
+                </StyledBoardTd>
                 <StyledBoardTd width={50}>{item.writer}</StyledBoardTd>
                 <StyledBoardTd width={50}>{item.day}</StyledBoardTd>
               </StyledBoardTr>
@@ -49,7 +59,9 @@ function Board() {
         </tbody>
       </StyledBoardTable>
       <StyledButtonBox>
-        <Button onClick={HandleWritingPageLinkclick}>글쓰기</Button>
+        <Button background="#B4F0B4" onClick={handleWritingPageLinkclick}>
+          글쓰기
+        </Button>
       </StyledButtonBox>
     </StyledDiv>
   );

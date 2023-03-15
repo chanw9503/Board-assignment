@@ -6,6 +6,7 @@ function LabelTextArea({ id, label, placeholder, value, onChange }) {
     <>
       <StyledLabel htmlfor={id}>{label}</StyledLabel>
       <StyledTextArea
+        required
         id={id}
         placeholder={placeholder}
         value={value}
@@ -18,14 +19,16 @@ function LabelTextArea({ id, label, placeholder, value, onChange }) {
 export default LabelTextArea;
 
 const StyledTextArea = styled.textarea`
-  height: 250px;
-  width: 400px;
+  height: 95%;
+  width: 95%;
   border: 0;
   border-radius: 5px;
-  padding-left: 10px;
-
-  font-size: 5px;
-  border: 0.5px solid lightgray;
+  padding: 10px;
+  margin-right: 10px;
+  outline: none;
+  font-size: 0.75rem;
+  border: none;
+  resize: none;
 `;
 
 const StyledLabel = styled.label`

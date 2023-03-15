@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useInput from '../../hook/useInput';
 import Button from '../common/Button';
@@ -52,12 +52,15 @@ function Write() {
     navigate('/');
   };
 
+  useEffect(() => {}, [title]);
+
   return (
     <>
       <StyledWrap>
         <StyledWrtingForm onSubmit={handleSubmit}>
           {/* id, label, placeholder, value, onChange */}
           <LabelInput
+            size="small"
             value={writer}
             onChange={onHandlerWriter}
             id="Writer"
@@ -65,6 +68,7 @@ function Write() {
             placeholder="작성자를 입력해 주세요(10자 이내)"
           />
           <LabelInput
+            size="small"
             value={title}
             onChange={onHandlerTitle}
             id="title"

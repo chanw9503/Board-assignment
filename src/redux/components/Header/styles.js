@@ -5,7 +5,7 @@ const StyledHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: green;
+  background-color: #dcffdc;
 
   max-width: 1200px;
   min-width: 800px;

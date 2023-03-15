@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const StyledDiv = styled.div`
   padding: 20px;
@@ -40,6 +40,20 @@ const StyledBoardTd = styled.td`
   min-width: 6rem;
   text-align: left;
   margin: 0;
+
+  //column 중에 제목을 클릭했을 때 세부 페이지로 넘어가고 싶었다.
+  //그래서 제목을 클릭했을 때 세부페이지로 넘어갈 수 있다는 것을 눈으로 보여주기 위해
+  //제목에 hover 되었을 때, 선명도를 바꿔주는 효과를 주려고 했다.
+  ${(props) =>
+    props.isClick &&
+    css`
+      &:hover {
+        color: rgba(0, 0, 0, 0.5);
+        text-decoration: underline;
+      }
+    `}
+
+  cursor: pointer;
 `;
 
 const StyledLine = styled.div`
@@ -55,6 +69,17 @@ const StyledButtonBox = styled.div`
 
 const StyledBoardTr = styled.tr`
   border-bottom: 0.5px solid lightgray;
+
+  //제목이 일때는 이부분을 제외시키고 싶었다.
+  //그래서 조건을 Td일 때, 효과가 나타나도록 바꾸었다.
+  ${(props) =>
+    props.isTd &&
+    css`
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+        //filter로 하면 글자만 색이 바뀌어서 배경색으로 했다.
+      }
+    `}
 `;
 
 export {

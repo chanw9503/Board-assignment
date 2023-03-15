@@ -1,25 +1,60 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-function LabelInput({ id, label, placeholder, value, onChange }) {
+function LabelInput({ id, label, placeholder, value, onChange, size }) {
   return (
     <>
       <StyledLabel htmlfor={id}>{label}</StyledLabel>
-      <StyledInput id={id} placeholder={placeholder} value={value} onChange={onChange} />
+      <StyledInput
+        required
+        id={id}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        size={size}
+      />
     </>
   );
 }
 
 export default LabelInput;
 
+const sizes = {
+  large: {
+    height: '3rem',
+    width: '45rem',
+    fontSize: '1.25rem',
+  },
+  medium: {
+    height: '2.25rem',
+    fontSize: '1rem',
+  },
+  small: {
+    height: '1.75rem',
+    fontSize: '0.875rem',
+  },
+};
+
+const sizeStyles = css`
+  ${({ size }) =>
+    size &&
+    css`
+      height: $(sizes[size].height);
+      font-size: ${sizes[size].fontSize};
+      width: ${sizes[size].width};
+    `}
+`;
+
 const StyledInput = styled.input`
-  height: 50px;
+  height: 1.75rem;
   width: 400px;
-  border: 0;
+  border: none;
   border-radius: 5px;
   padding-left: 10px;
-  font-size: 5px;
-  border: 0.5px solid lightgray;
+  font-size: '1.25rem';
+  outline: none;
+
+  ${sizeStyles}
 `;
 
 const StyledLabel = styled.label`

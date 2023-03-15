@@ -11,7 +11,7 @@ function Router() {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/writing" element={<Writing />} />
-        <Route path="/:id" element={<Post />} />
+        <Route path="/post/:id" element={<Post />} />
       </Routes>
     </BrowserRouter>
   );
