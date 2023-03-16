@@ -1,6 +1,6 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import CustomLine from '../common/CustomLine';
 import Button from '../common/Button';
 import LabelInput from '../common/LabelInput';
@@ -36,19 +36,20 @@ function DetailBoard() {
   // );
 
   const { isLoading, isError, data } = useQuery('board', getBoard);
+
   const filterBoard = data.filter((item) => item.id === id);
+  //filter는 배열을 결과값으로 내보낸다. 하지만 어짜피
+  //결과값이 1개이므로 '0'번째 값으로 설정한다.
+  const board = filterBoard[0];
 
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const mutation = useMutation(modifyBoard, {
     onSuccess: () => {
       queryClient.invalidateQueries('board');
     },
   });
-
-  //filter는 배열을 결과값으로 내보낸다. 하지만 어짜피
-  //결과값이 1개이므로 '0'번째 값으로 설정한다.
-  const board = filterBoard[0];
 
   const [isEdit, setEdit] = useState(false);
   const [contents, setContents] = useState('');

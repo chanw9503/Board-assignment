@@ -7,6 +7,10 @@ function Button(props) {
       onClick={props.onClick}
       background={props.background}
       disabled={props.disable}
+      float={props.float}
+      width={props.width}
+      height={props.height}
+      onSubmit={props.submit}
     >
       {props.children}
     </StyledButton>
@@ -14,10 +18,6 @@ function Button(props) {
 }
 
 const StyledButton = styled.button`
-  width: 80px;
-  height: 20px;
-  float: right;
-
   border: none;
   border-radius: 5px;
 
@@ -41,5 +41,32 @@ const StyledButton = styled.button`
         background: ${darken(0.1, props.background)};
       }
     `}
+
+  ${(props) =>
+    props.float
+      ? css`
+          float: ${props.flat};
+        `
+      : css`
+          float: right;
+        `}
+
+  ${(props) =>
+    props.width
+      ? css`
+          width: ${props.width};
+        `
+      : css`
+          width: 80px;
+        `}
+
+  ${(props) =>
+    props.height
+      ? css`
+          height: ${props.height};
+        `
+      : css`
+          height: 20px;
+        `}
 `;
 export default Button;

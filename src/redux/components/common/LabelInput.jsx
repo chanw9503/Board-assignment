@@ -5,6 +5,7 @@ import Validation from './Validation';
 function LabelInput(props) {
   if (props.isError == true) console.log('LabelInput', props);
 
+  const length = props.length === undefined ? 10 : props.length + 1;
   return (
     <div>
       <StyledLabel htmlfor={props.id}>{props.label}</StyledLabel>
@@ -16,7 +17,8 @@ function LabelInput(props) {
         value={props.value}
         onChange={props.onChange}
         size={props.size}
-        maxLength={props.limit + 1}
+        maxLength={length}
+        type={props.type}
       />
     </div>
   );
