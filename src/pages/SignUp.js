@@ -1,8 +1,9 @@
 import React from 'react';
+import { useCookies } from 'react-cookie';
 import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { userSignUp } from '../api/login';
+import { userCheck, userSignUp } from '../api/login';
 import Button from '../redux/components/common/Button';
 import LabelInput from '../redux/components/common/LabelInput';
 import useInput from '../redux/hook/useInput';
@@ -18,6 +19,7 @@ function SignUp() {
   const [id, handlerId] = useInput();
   const [pw, handlerPw] = useInput();
 
+  const [cookies, setCookie, removeCookies] = useCookies(['id']);
   const queryClient = useQueryClient();
   const mutation = useMutation(userSignUp, {
     onSuccess: () => {
@@ -25,13 +27,26 @@ function SignUp() {
     },
   });
 
-  const handlerSubmit = (e) => {
+  const mutationCheck = useMutation(userCheck, {
+    onSuccess: () => {
+      console.log('CheckSuccess');
+      navigate('/');
+    },
+  });
+
+  const navigate = useNavigate();
+
+  const handlerSignUp = (e) => {
     e.preventDefault();
-    console.log('id', id, 'pasward', pw);
+
+    // const token = cookies.id;
+
+    // mutationCheck.mutate(token);
+
     const body = { id: id, password: pw };
     mutation.mutate(body);
+    navigate('/login');
   };
-  const navigate = useNavigate();
 
   return (
     <StyledWrap>
@@ -52,7 +67,12 @@ function SignUp() {
           placeholder="비밀번호를 입력하세요."
         />
         <StyledButtonBox>
-          <Button onClick={handlerSubmit} height="40px" width="500px" float="left">
+          <Button
+            onClick={(e) => handlerSignUp(e)}
+            height="40px"
+            width="500px"
+            float="left"
+          >
             가입하기
           </Button>
         </StyledButtonBox>

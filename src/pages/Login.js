@@ -1,10 +1,12 @@
 import React from 'react';
-import { useQuery } from 'react-query';
+import { useCookies } from 'react-cookie';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { userCheck } from '../api/login';
+import { userCheck, userLogin } from '../api/login';
 import Button from '../redux/components/common/Button';
 import LabelInput from '../redux/components/common/LabelInput';
+import useInput from '../redux/hook/useInput';
 
 // id={props.id}
 // placeholder={props.placeholder}
@@ -14,9 +16,31 @@ import LabelInput from '../redux/components/common/LabelInput';
 // maxLength={length}
 
 function SignUp() {
-  const { isLoading, isErorr, data } = useQuery('login', userCheck);
-  console.log('data', data);
-  const handlerSubmit = () => {};
+  const [id, handlerId] = useInput();
+  const [pw, handlerPw] = useInput();
+  const queryClient = useQueryClient();
+
+  const [cookies, setCookie] = useCookies(['id']);
+
+  const mutation = useMutation(userLogin, {
+    onSuccess: (token) => {
+      console.log('token', token);
+      setCookie('id', token);
+      console.log('cookies', cookies);
+      queryClient.invalidateQueries('login');
+      navigate('/');
+    },
+  });
+
+  const handlerSubmit = (e) => {
+    e.preventDefault();
+    const body = {
+      id,
+      password: pw,
+    };
+
+    mutation.mutate(body);
+  };
   const navigate = useNavigate();
 
   const handlerClickSignUp = () => {
@@ -25,12 +49,20 @@ function SignUp() {
   };
   return (
     <StyledWrap>
-      <Form>
-        <LabelInput id={0} label="아이디 : " placeholder="아이디를 입력하세요." />
+      <Form onSubmit={(e) => handlerSubmit(e)}>
+        <LabelInput
+          value={id}
+          onChange={handlerId}
+          id={0}
+          label="아이디 : "
+          placeholder="아이디를 입력하세요."
+        />
         <LabelInput
           id={1}
           type="password"
           label="비빌번호 : "
+          value={pw}
+          onChange={handlerPw}
           placeholder="비밀번호를 입력하세요."
         />
         <StyledButtonBox>
