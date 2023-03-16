@@ -20,12 +20,13 @@ function SignUp() {
   const [pw, handlerPw] = useInput();
   const queryClient = useQueryClient();
 
-  const [cookies, setCookie] = useCookies(['id']);
+  const [cookies, setCookie] = useCookies();
 
   const mutation = useMutation(userLogin, {
     onSuccess: (token) => {
-      console.log('token', token);
-      setCookie('id', token);
+      const expires = 30000;
+      console.log('login token', token);
+      setCookie(`${id}`, token);
       console.log('cookies', cookies);
       queryClient.invalidateQueries('login');
       navigate('/');

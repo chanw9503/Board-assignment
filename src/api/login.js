@@ -13,12 +13,12 @@ const userCheck = async (token) => {
 const userLogin = async (body) => {
   //key,value가 같아서 생략
   const response = await api.post(`/login`, body);
-  console.log('userLogin', response);
   return response;
 };
 
 const userSignUp = async (body) => {
   const response = await api.post('/register', body);
+  return response;
 };
 
 export { userCheck, userLogin, userSignUp };

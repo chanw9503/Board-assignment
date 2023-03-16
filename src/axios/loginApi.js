@@ -21,6 +21,7 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   function (config) {
+    console.log('응답 받기 토큰 :', config);
     return config.data.token;
   },
   function (error) {
