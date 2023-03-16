@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
-import { modifyBoard } from '../../modules/board';
+import { useLocation, useParams } from 'react-router-dom';
 import CustomLine from '../common/CustomLine';
 import Button from '../common/Button';
 import LabelInput from '../common/LabelInput';
@@ -14,20 +13,38 @@ import {
   StyledSubTitle,
   StyledTitle,
 } from './styles';
+import { getBoard, modifyBoard } from '../../../api/board';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 
 function DetailBoard() {
-  const location = useLocation();
-  //주소값을 읽어온다. 주소값에 내가 설정한 post/id=0 값을 불러온다.
-  //주소값에서 내가 필요한 id 값만 parsing하기 위해서 아래와 같이 자른다.
-  const id = location.pathname.slice(1).split('id', 2)[1].slice(1);
+  // const location = useLocation();
+
+  // console.log('params', params);
+  // //주소값을 읽어온다. 주소값에 내가 설정한 post/id=0 값을 불러온다.
+  // //주소값에서 내가 필요한 id 값만 parsing하기 위해서 아래와 같이 자른다.
+  // const id = location.pathname.slice(1).split('id', 2)[1].slice(1);
 
   //useParams
-
+  const id = useParams().id;
   //useSelector로 store에 있는 state 값을 불러와서
   //내가 필요한 id에 있는 data 값만 가져온다.
-  const filterBoard = useSelector((state) =>
-    state.board.filter((item) => item.id === id)
-  );
+  // const filterBoard = useSelector((state) =>
+  //   state.board.filter((item) => {
+  //     console.log('item.id ', item.id, 'id', id);
+  //     return item.id === id;
+  //   })
+  // );
+
+  const { isLoading, isError, data } = useQuery('board', getBoard);
+  const filterBoard = data.filter((item) => item.id === id);
+
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation(modifyBoard, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('board');
+    },
+  });
 
   //filter는 배열을 결과값으로 내보낸다. 하지만 어짜피
   //결과값이 1개이므로 '0'번째 값으로 설정한다.
@@ -37,7 +54,7 @@ function DetailBoard() {
   const [contents, setContents] = useState('');
   const [title, setTitle] = useState('');
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const handlerClickEdit = () => {
     setTitle(board.title);
     setContents(board.body);
@@ -63,13 +80,14 @@ function DetailBoard() {
     const newBoard = {
       id: board.id,
       title,
-      title,
       body: contents,
       day: board.day,
       writer: board.writer,
       no: board.no,
     };
-    dispatch(modifyBoard(newBoard));
+    console.log('newBoard', newBoard);
+    //dispatch(modifyBoard(newBoard));
+    mutation.mutate(newBoard);
     setEdit(!isEdit);
   };
 

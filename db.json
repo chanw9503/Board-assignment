@@ -1,0 +1,20 @@
+{
+  "board": [
+    {
+      "id": "dfd684a2-e5c0-49db-8fa7-f922fca0384e",
+      "title": "게시판만들기",
+      "body": "게시판을 만들어보아요sadasdasdsa",
+      "writer": "박찬우",
+      "day": "2023-03-16",
+      "no": 0
+    },
+    {
+      "id": "e1a15ecc-fb91-48bf-8d44-550e2f06f689",
+      "title": "dddasd",
+      "body": "asdasddasdasddasdasddasdasddasdasddasdasddas",
+      "writer": "dddddddda",
+      "day": "2023-03-16",
+      "no": 1
+    }
+  ]
+}

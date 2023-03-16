@@ -14,24 +14,44 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import DeleteIcon from '../Icon/DeleteIcon/DeleteIcon';
-import { deleteBoard } from '../../modules/board';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { deleteBoard, getBoard } from '../../../api/board';
 
 function Board() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
   const handleWritingPageLinkclick = () => {
     navigate('/writing');
   };
-  const board = useSelector((state) => state.board);
+  //const board = useSelector((state) => state.board);
+
+  const queryClient = useQueryClient();
+  const mutation = useMutation(deleteBoard, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('board');
+    },
+  });
 
   const handlerClickDelete = (id) => {
-    dispatch(deleteBoard(id));
+    //dispatch(deleteBoard(id));
+    mutation.mutate(id);
   };
 
   const handlerClickTitle = (id) => {
     console.log('id : ', id);
-    navigate(`/post/id=${id}`);
+    navigate(`/post/${id}`);
   };
+
+  const { isLoading, isError, data } = useQuery('board', getBoard);
+
+  if (isLoading) {
+    return <p>로딩중입니다....!</p>;
+  }
+
+  if (isError) {
+    return <p>오류가 발생하였습니다....!</p>;
+  }
+
   return (
     <StyledDiv>
       <StyledTitle>자유 게시판</StyledTitle>
@@ -48,7 +68,7 @@ function Board() {
           </StyledBoardTr>
         </thead>
         <tbody>
-          {board.map((item) => {
+          {data.map((item) => {
             return (
               <StyledBoardTr isTd={true} key={item.id}>
                 <StyledBoardTd width={30}>{item.no}</StyledBoardTd>

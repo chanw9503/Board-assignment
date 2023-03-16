@@ -1,19 +1,24 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import Validation from './Validation';
 
-function LabelInput({ id, label, placeholder, value, onChange, size }) {
+function LabelInput(props) {
+  if (props.isError == true) console.log('LabelInput', props);
+
   return (
-    <>
-      <StyledLabel htmlfor={id}>{label}</StyledLabel>
+    <div>
+      <StyledLabel htmlfor={props.id}>{props.label}</StyledLabel>
+      <Validation isError={props.isError} limit={props.limit} />
       <StyledInput
         required
-        id={id}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-        size={size}
+        id={props.id}
+        placeholder={props.placeholder}
+        value={props.value}
+        onChange={props.onChange}
+        size={props.size}
+        maxLength={props.limit + 1}
       />
-    </>
+    </div>
   );
 }
 

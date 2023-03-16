@@ -4,6 +4,7 @@ import Main from '../pages/Main';
 import Post from '../pages/Post';
 import Writing from '../pages/Writing';
 import Header from '../redux/components/Header/Header';
+
 function Router() {
   return (
     <BrowserRouter>

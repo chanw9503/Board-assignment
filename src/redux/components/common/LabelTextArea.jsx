@@ -1,16 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
+import Validation from './Validation';
 
-function LabelTextArea({ id, label, placeholder, value, onChange }) {
+function LabelTextArea(props) {
   return (
     <>
-      <StyledLabel htmlfor={id}>{label}</StyledLabel>
+      <div>
+        <StyledLabel htmlfor={props.id}>{props.label}</StyledLabel>
+        <Validation isError={props.isError} limit={props.limit} />
+      </div>
       <StyledTextArea
         required
-        id={id}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
+        id={props.id}
+        placeholder={props.placeholder}
+        value={props.value}
+        onChange={props.onChange}
+        maxLength={props.limit + 1}
       />
     </>
   );

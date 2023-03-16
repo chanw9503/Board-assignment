@@ -1,10 +1,14 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { darken, lighten } from 'polished';
-function Button({ onClick, children, background }) {
+function Button(props) {
   return (
-    <StyledButton onClick={onClick} background={background}>
-      {children}
+    <StyledButton
+      onClick={props.onClick}
+      background={props.background}
+      disabled={props.disable}
+    >
+      {props.children}
     </StyledButton>
   );
 }
